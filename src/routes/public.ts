@@ -4,7 +4,6 @@ import { s, esc } from '../lib/validate.js';
 
 const r = Router();
 
-// Challenge 1: server-side search, filter and pagination
 r.get('/tuitions', async (req, res) => {
   const page = Math.max(1, parseInt(String(req.query.page)) || 1);
   const limit = Math.min(
