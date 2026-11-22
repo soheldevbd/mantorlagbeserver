@@ -14,11 +14,9 @@ r.post('/tutor/tuitions', ...verifyTutor, async (req, res) => {
     (await tuitions.countDocuments({ tutorEmail: req.user.email })) >=
       FREE_LIMIT
   )
-    return void res
-      .status(403)
-      .json({
-        message: `Free plan allows ${FREE_LIMIT} tuition posts. Upgrade to Pro for unlimited posts.`,
-      });
+    return void res.status(403).json({
+      message: `Free plan allows ${FREE_LIMIT} tuition posts. Upgrade to Pro for unlimited posts.`,
+    });
   const doc = {
     ...data,
     tutorName: req.user.name,
@@ -41,7 +39,6 @@ r.get('/tutor/tuitions', ...verifyTutor, async (req, res) => {
   );
 });
 
-// Editing sends the post back to admin review
 r.patch('/tutor/tuitions/:id', ...verifyTutor, async (req, res) => {
   const id = oid(req.params.id);
   const { data, error } = parseTuition(req.body);
